@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar mode="ios">
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> {{titulo}} </ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-avatar>
+                    <img *ngIf="url" [src]="url">
+                    <img *ngIf="!url" src="../../../../assets/img/chat_user.PNG">
+                </ion-avatar>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="fondo">
+    <ion-item-divider style="--background: transparent; --padding-bottom:20px;" text-wrap *ngFor="let talk of conversacion">
+        <ion-avatar slot="start">
+            <img *ngIf="talk.url" [src]="talk.url">
+            <img *ngIf="!talk.url" src="../../../../assets/img/chat_user.PNG">
+        </ion-avatar>
+        <ion-label color="light" style="--padding-left: 10px;">
+            <h2> {{talk.contenido}} </h2>
+            <p *ngIf="talk.creador.apellido"> {{talk.creador.name}} {{talk.creador.apellido}} </p>
+            <p *ngIf="!talk.creador.apellido"> {{talk.creador.name}} </p>
+        </ion-label>
+    </ion-item-divider>
+</ion-content>
+<ion-footer>
+    <ion-item>
+        <ion-textarea id="message" type="text" #mensaje slot="start" placeholder="que piensas" autocorrect="on" clearOnEdit="true" clearInput="true">
+
+        </ion-textarea>
+        <ion-button (click)="publicar(mensaje.value)" slot="end" shape="round">
+            <ion-icon name="send"></ion-icon>
+        </ion-button>
+    </ion-item>
+</ion-footer>

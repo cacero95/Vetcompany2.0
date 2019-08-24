@@ -1,0 +1,20 @@
+<ion-list>
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input #nombre type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-textarea #descripcion placeholder="Descripción"></ion-textarea>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Fecha de inició</ion-label>
+        <ion-datetime #inicio display-format="MMM DD, YYYY HH:mm" picker-format="MMM DD, YYYY HH:mm"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Fecha final</ion-label>
+        <ion-datetime #termina display-format="MMM DD, YYYY HH:mm" picker-format="MMM DD, YYYY HH:mm"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-button shape="round" expand="block" (click)="confirmar(nombre.value,descripcion.value,inicio.value, termina.value)">Confirmar</ion-button>
+    </ion-item>
+</ion-list>

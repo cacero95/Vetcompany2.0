@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-toolbar class="navbar" mode="ios">
+        <ion-title color="light">Veterinarias</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-tabs>
+            <ion-tab-bar>
+                <ion-tab-button (click)="navegar('home')">
+                    <ion-icon name="home"></ion-icon>
+                    <ion-label> Principal </ion-label>
+                </ion-tab-button>
+                <ion-tab-button *ngIf="veterinarias.length > 0" (click)="change_options = false;" [ngClass]="{'border': !change_options}">
+                    <ion-icon name="people"></ion-icon>
+                    <ion-label> Disponibles </ion-label>
+                </ion-tab-button>
+                <ion-tab-button (click)="change_options = true;" [ngClass]="{'border': change_options}" *ngIf="vet_usuario">
+                    <ion-icon name="contact"></ion-icon>
+                    <ion-label> Registradas </ion-label>
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
+    </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="!change_options">
+    <ion-searchbar animated mode="ios" placeholder="Buscar..." (ionChange)="buscar($event)"></ion-searchbar>
+    <ion-list>
+        <ion-item (click)="show_info(veterinaria)" *ngFor="let veterinaria of veterinarias">
+            <ion-card>
+                <img *ngIf="veterinaria.url" [src]="veterinaria.url" />
+                <ion-card-header>
+                    <ion-card-subtitle>{{veterinaria.direccion}}</ion-card-subtitle>
+                    <ion-card-title>{{veterinaria.name}}</ion-card-title>
+                    <rating [rate]="veterinaria.valoracion" readonly="false" size="default" (rateChange)="onRateChange($event)">
+                    </rating>
+                </ion-card-header>
+                <ion-card-content>
+                    <ul>
+                        <li *ngFor="let servicio of veterinaria.services">
+                            {{servicio}}
+                        </li>
+                    </ul>
+
+                    <ion-button expand="block" shape="round" (click)="registrarse(veterinaria)">Registrar</ion-button>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+<ion-content *ngIf="change_options">
+    <ion-list>
+        <ion-item *ngFor="let veterinaria of usuario.veterinarias">
+            <div class="display">
+                <ion-card>
+                    <img (click)="show_info(veterinaria)" *ngIf="veterinaria.url" [src]="veterinaria.url" />
+                    <ion-card-header>
+                        <ion-card-subtitle>{{veterinaria.direccion}}</ion-card-subtitle>
+                        <ion-card-title>{{veterinaria.name}}</ion-card-title>
+                        <rating [rate]="veterinaria.valoracion" readonly="false" size="default" (rateChange)="onRateChange($event,veterinaria)">
+                        </rating>
+                    </ion-card-header>
+                    <ion-card-content (click)="show_info(veterinaria)">
+                        <ul>
+                            <li *ngFor="let servicio of veterinaria.services">
+                                {{servicio}}
+                            </li>
+                        </ul>
+                    </ion-card-content>
+                </ion-card>
+                <ion-button shape="round" expand="block" (click)="calificar_veterinaria(veterinaria)">Crear</ion-button>
+            </div>
+        </ion-item>
+
+    </ion-list>
+</ion-content>

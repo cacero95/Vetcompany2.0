@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar mode="ios" class="navbar">
+        <ion-title style="--color:#ffffff; font-weight: 100px;">Eventos</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="light" (click)="add_event()">
+                <ion-icon name="add"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <br><br>
+    <calendar [locale]="calendar.locale" noEventsLabel="Sin eventos" [eventSource]="origen_eventos" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)" startHour="6" endHour="20" step="30" startingDayWeek="1">
+    </calendar>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-tabs>
+            <ion-tab-bar>
+                <ion-tab-button style="border: solid 2px #20A9B2; box-shadow: #ffffff; border-radius: 20px;" (click)="navegar('rastreo')">
+                    <ion-icon name="locate"></ion-icon>
+                    <ion-label>Ubicar</ion-label>
+                </ion-tab-button>
+                <ion-tab-button style="border: solid 2px #20A9B2; box-shadow: #ffffff; border-radius: 20px;" (click)="navegar('home')">
+                    <ion-icon name="home"></ion-icon>
+                    <ion-label>Principal</ion-label>
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
+    </ion-toolbar>
+</ion-footer>

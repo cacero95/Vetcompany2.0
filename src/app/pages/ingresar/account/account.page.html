@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar mode="ios">
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-icon name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="vet">
+            {{vet.name}}
+        </ion-title>
+        <ion-title *ngIf="user">
+            {{user.name}} {{user.apellido}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="user">
+    <div>
+        <ion-item>
+            <ion-icon name="contact"></ion-icon>
+        </ion-item>
+    </div>
+
+    <ion-item>
+        Correo:{{user.email}}
+    </ion-item>
+    <ion-item>
+        Mascotas:{{user.nMascotas}}
+    </ion-item>
+    <ion-item>
+        Dirección:{{user.direccion}}
+    </ion-item>
+    <ion-item>
+        Contacto:{{user.telefono}}
+    </ion-item>
+    <ion-item (click)="update_profile(user)" detail>
+        <ion-icon slot="start" name="create"></ion-icon>
+        <ion-label> Editar perfil </ion-label>
+    </ion-item>
+    <ion-item (click)="close_session()" detail>
+        <ion-icon slot="start" name="exit"></ion-icon>
+        <ion-label> Cerrar sesión </ion-label>
+    </ion-item>
+</ion-content>
+<ion-content padding *ngIf="vet">
+    <div>
+        <ion-item>
+            <ion-icon name="contact"></ion-icon>
+        </ion-item>
+    </div>
+
+    <ion-item>
+        Correo:{{vet.email}}
+    </ion-item>
+    <ion-item>
+        Servicios:{{vet.services.length}}
+    </ion-item>
+    <ion-item>
+        Dirección:{{vet.direccion}}
+    </ion-item>
+    <ion-item>
+        Contacto:{{vet.telefono}}
+    </ion-item>
+    <ion-item detail>
+        <ion-icon slot="start" name="create"></ion-icon>
+        <ion-button (click)="update_profile(vet)"> Editar perfil </ion-button>
+    </ion-item>
+    <ion-item detail>
+        <ion-icon slot="start" name="exit"></ion-icon>
+        <ion-button (click)="close_session()"></ion-button>
+    </ion-item>
+</ion-content>

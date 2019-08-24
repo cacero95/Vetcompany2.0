@@ -1,0 +1,18 @@
+<ion-content class="" padding>
+    <ion-buttons>
+        <ion-button (click)="close()" slot="start">
+            <ion-icon name="arrow-round-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-row padding>
+        <ion-col size="10" offset="1">
+            <img *ngIf="imagePreview" (click)="push_image()" style="border-radius: 20px; margin-left: 30%; width: 100px;" [src]="imagePreview" alt="">
+            <img *ngIf="!imagePreview" (click)="push_image()" style="border-radius: 20px; margin-left: 30%; width: 100px;" [src]="default_image" alt="">
+        </ion-col>
+    </ion-row>
+    <ion-item>
+        <ion-label position="floating">Mensaje</ion-label>
+        <ion-textarea #mensaje placeholder="Que estas pensando"></ion-textarea>
+    </ion-item>
+    <ion-button expand="block" shape="round" (click)="publicar()">Publicar</ion-button>
+</ion-content>

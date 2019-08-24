@@ -1,3 +1,44 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-split-pane>
+        <ion-menu>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title style="text-align: center;">Menu</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content *ngIf="select_menu == 0">
+
+                <ion-list *ngIf="status == 'no'">
+                    <ion-menu-toggle style="--background:#ffffff;" auto-hidden="false" *ngFor="let item of appMenu">
+                        <ion-item [routerDirection]="'root'" (click)="navegar(item.url)">
+                            <ion-icon [name]="item.icon"></ion-icon>
+                            <ion-title>{{item.title}}</ion-title>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+
+            </ion-content>
+            <ion-content *ngIf="select_menu == 1">
+                <ion-list *ngIf="status == 'no'">
+                    <ion-menu-toggle style="--background:#ffffff;" auto-hidden="false" *ngFor="let item of menuUser">
+                        <ion-item [routerDirection]="'root'" (click)="navegar(item.url)">
+                            <ion-icon [name]="item.icon"></ion-icon>
+                            <ion-title>{{item.title}}</ion-title>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </ion-content>
+            <ion-content *ngIf="select_menu == 2">
+                <ion-list *ngIf="status == 'no'">
+                    <ion-menu-toggle style="--background:#ffffff;" auto-hidden="false" *ngFor="let item of menuVet">
+                        <ion-item [routerDirection]="'root'" (click)="navegar(item.url)">
+                            <ion-icon [name]="item.icon"></ion-icon>
+                            <ion-title>{{item.title}}</ion-title>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet main></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>

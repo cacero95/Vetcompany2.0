@@ -4,3 +4,16 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
+.navbar {
+    --background: #20A9B2;
+    background-attachment: fixed;
+    color: #ffffff;
+}
+
+.fondo {
+    --background: url('../assets/img/fondo_mar.jpg');
+}
+
+.border {
+    border-bottom: 4px solid #20A9B2;
+}

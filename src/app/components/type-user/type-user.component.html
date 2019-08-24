@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar mode="ios" color="tertiary">
+        <ion-buttons slot="start">
+            <ion-back-button (click)="cerrar()" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Que usuario eres?</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+    <ion-card>
+        <img src="assets/img/tengo_veterinaria.jpg" />
+        <ion-card-header>
+            <ion-card-subtitle>Eres una institución</ion-card-subtitle>
+            <ion-card-title>Registra tu institución</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+            <p>
+                Ingresa tus usuarios tus usuarios
+            </p>
+            <ion-button expand="full" (click)="ingresar('institute')">Ingresa</ion-button>
+        </ion-card-content>
+    </ion-card>
+
+
+    <ion-card>
+        <img src="assets/img/tengo_mascota.jpg" />
+        <ion-card-header>
+            <ion-card-subtitle>Registra tu mascota</ion-card-subtitle>
+            <ion-card-title>Tienes mascota?</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+            <p>
+                Registra tu mascota
+            </p>
+
+            <ion-button expand="full" (click)="ingresar('mascota')">Ingresa</ion-button>
+        </ion-card-content>
+
+    </ion-card>
+
+</ion-content>

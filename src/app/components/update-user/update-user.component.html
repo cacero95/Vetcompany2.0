@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-toolbar *ngIf="usuario" mode="ios">
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="textos"> {{usuario.name}} </ion-title>
+    </ion-toolbar>
+    <ion-toolbar mode="ios" *ngIf="vet">
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="textos"> {{vet.name}} </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="usuario">
+    <ion-slides>
+        <ion-slide *ngFor="let mascota of usuario.mascotas; let indice=index;">
+            <ion-row>
+                <ion-col size="10" offset="1">
+                    <img (click)="change_image(indice)" style="border-radius: 20px; width: 100%;" [src]="mascota.url" alt="">
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+    </ion-slides>
+    <br><br>
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input #name [placeholder]="usuario.name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="usuario.apellido">
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input #apellido [placeholder]="usuario.apellido"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input #address [placeholder]="usuario.direccion"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input #phone [placeholder]="usuario.telefono"></ion-input>
+    </ion-item>
+</ion-content>
+<ion-content padding *ngIf="vet">
+    <ion-item>
+        <ion-row>
+            <ion-col size="10" offset="1">
+                <img src="vet.imagen" [alt]="vet.name">
+            </ion-col>
+        </ion-row>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input #name></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input #address></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input #phone></ion-input>
+    </ion-item>
+    <ion-item *ngFor="let service of services">
+        <ion-avatar>
+            <img [src]="service.img" [alt]="service.nombre">
+        </ion-avatar>
+        <h2> {{service.nombre}} </h2>
+        <ion-checkbox [checked]="service.tick"></ion-checkbox>
+    </ion-item>
+</ion-content>

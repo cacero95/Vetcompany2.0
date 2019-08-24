@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar mode="ios">
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Ingresa</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-tabs>
+            <ion-tab-bar>
+                <ion-tab-button [ngClass]="{border: !option}" (click)="option=!option">
+                    <ion-icon name="mail"></ion-icon>
+                    <ion-label>Correo</ion-label>
+                </ion-tab-button>
+
+            </ion-tab-bar>
+        </ion-tabs>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="!option">
+    <ion-item>
+        <ion-label position="floating">
+            Corrreo
+        </ion-label>
+        <ion-input #mail type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input #pass type="password"></ion-input>
+    </ion-item>
+    <ion-button expand="full" expand="block" shape="round" (click)="login(mail.value,pass.value)">ingresa</ion-button>
+
+</ion-content>

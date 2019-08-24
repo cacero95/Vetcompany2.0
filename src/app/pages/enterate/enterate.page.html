@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-toolbar mode="ios" class="navbar">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title color="light">Vetcompany</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-tabs class="navbar">
+            <ion-tab-bar slot="top">
+                <ion-tab-button style="--background:#ffffff;" [ngClass]="{border: opcion=='grupos'}" (click)="change_option('grupos')">
+                    <ion-icon name="people"></ion-icon>
+
+                </ion-tab-button>
+                <ion-tab-button [ngClass]="{border: opcion=='consejos'}" (click)="change_option('consejos')">
+                    <ion-icon name="paw"></ion-icon>
+
+                </ion-tab-button>
+                <ion-tab-button [ngClass]="{border: opcion=='policial'} " (click)="change_option('policial')">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="opcion == 'grupos'" class="fondo">
+    <ion-card style="color:#ffffff;" *ngFor="let item of grupos">
+        <img *ngIf="item.profile_banner_url" [src]="item.profile_banner_url" />
+        <img *ngIf="!item.profile_banner_url" [src]="item.profile_image_url_https">
+        <ion-card-header>
+
+            <ion-card-title text-center style="--color:#ffffff;">{{item.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <small> Creado en: </small>
+            <small> {{item.created_at}} </small>
+            <p>
+                {{item.description}}
+            </p>
+
+            <ion-row *ngIf="item.entities.url">
+                <h3>Visita el grupo</h3>
+                <ion-col text-right>
+                    <ion-button text-right size="small" fill="clear" color="light" (click)="visitar(item.entities.url.urls)">
+                        <ion-icon name="share-alt"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-button *ngIf="!item.profile_banner_url" shape="round" expand="block" (click)="ver_tweets(item.screen_name,item.profile_image_url_https,item.name)" expand="full">Ingresar</ion-button>
+            <ion-button *ngIf="item.profile_banner_url" shape="round" expand="block" (click)="ver_tweets(item.screen_name,item.profile_banner_url,item.name)" expand="full">Ingresar</ion-button>
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>
+<ion-content *ngIf="opcion == 'consejos'" class="fondo">
+    <ion-card style="color:#ffffff;" *ngFor="let consejo of tips">
+        <ion-card-header style="color:#ffffff;">
+            <ion-card-title text-center style="--color:#ffffff;">{{consejo.titulo}}</ion-card-title>
+
+        </ion-card-header>
+        <ion-card-content>
+            <p *ngIf="consejo.short"> {{consejo.short}} </p>
+            <p *ngIf="!consejo.short"> {{consejo.descripcion}} </p>
+            <ion-button expand="block" shape="round" (click)="ver_completo(consejo)">
+                <ion-icon name="paw"></ion-icon>
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+<ion-content *ngIf="opcion == 'policial'" class="fondo">
+    <ion-card style="color:#ffffff;" *ngFor="let poli of policial">
+        <ion-card-header style="color:#ffffff;">
+            <ion-card-title text-center style="--color:#ffffff;">{{poli.titulo}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p *ngIf="poli.short"> {{poli.short}} </p>
+            <p *ngIf="!poli.short"> {{poli.descripcion}} </p>
+            <ion-button expand="block" shape="round" (click)="ver_completo(poli)">
+                <ion-icon name="paw"></ion-icon>
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

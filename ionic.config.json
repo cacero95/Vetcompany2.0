@@ -1,5 +1,7 @@
 {
   "name": "vetcompany",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
