@@ -65,7 +65,10 @@ export class CalendarPage implements OnInit {
   }
   async add_event(){
     let modal = await this.modal.create({
-      component:CalendarEventComponent
+      component:CalendarEventComponent,
+      componentProps:{
+        usuario:this.usuario
+      }
     })
     modal.present();
     const {data} = await modal.onDidDismiss();

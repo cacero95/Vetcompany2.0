@@ -1,5 +1,73 @@
+<br>
+
 <ion-content padding>
     <ion-card>
+        <ion-button text-left (click)="back()">
+            <ion-icon name="arrow-round-back"></ion-icon>
+        </ion-button>
+        <ion-card-header text-center padding>
+            <ion-card-title>Agrega un Evento</ion-card-title>
+        </ion-card-header>
+        <ion-card-content text-center padding>
+            <ion-item>
+                <ion-input #title type="text" placeholder="Titulo"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input #descripcion type="text" placeholder="Descripcion"></ion-input>
+            </ion-item>
+            <!--
+                Si el usuario quiere agregar una veterinaria a su
+                agenda de tareas
+            -->
+            <ion-item class="seleccionado" *ngIf="usuario.veterinarias">
+                <ion-label>Agregar Veterinarias</ion-label>
+                <ion-checkbox [checked]="check" (ionChange)="check = !check" slot="end" color="primary"></ion-checkbox>
+            </ion-item>
+            <ion-list *ngIf="check">
+                <ion-list-header>
+                    Veterinarias {{stayholders.length}}
+                </ion-list-header>
+                <ion-item class="seleccionado" *ngFor="let vet of usuario.veterinarias" class="seleccionado" (click)="agregar_meetings(vet.email, vet.name, vet.url)">
+                    <ion-avatar class="seleccionado" slot="start" *ngIf="vet.url">
+                        <img [src]="vet.url" alt="vet.name">
+                    </ion-avatar>
+                    <ion-label class="seleccionado">{{vet.name}}</ion-label>
+                </ion-item>
 
+
+            </ion-list>
+            <!--
+                Ahora si el que ingresa es una veterinaria
+            -->
+            <ion-item *ngIf="usuario.users">
+                <ion-label> Agregar Clientes </ion-label>
+                <ion-checkbox [checked]="check" (ionChange)="check = !check" slot="end" color="primary"></ion-checkbox>
+            </ion-item>
+            <ion-list #lista *ngIf="check">
+                <ion-item-sliding *ngFor="let us of usuario.users">
+                    <ion-item (click)="agregar_meetings(us.email, us.name, us.url, lista)">
+                        <ion-avatar>
+                            <img *ngIf="us.url" src="us.url" alt="us.name">
+                            <img *ngIf="!us.url" src="../../../assets/img/chat_user.PNG" alt="us.name">
+                        </ion-avatar>
+                        <ion-label *ngIf="us.apellido"> {{us.name}} {{us.apellido}} </ion-label>
+                        <ion-label *ngIf="!us.apellido"> {{us.name}} </ion-label>
+                    </ion-item>
+                </ion-item-sliding>
+            </ion-list>
+
+
+            <ion-item>
+                <ion-label>Inició</ion-label>
+                <ion-datetime #inicio displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>Termina</ion-label>
+                <ion-datetime #termina displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm"></ion-datetime>
+            </ion-item>
+        </ion-card-content>
     </ion-card>
+    <ion-button padding shape="round" expand="block" (click)="verificar_event(title.value, descripcion.value,inicio.value,termina.value)">
+        Crear
+    </ion-button>
 </ion-content>

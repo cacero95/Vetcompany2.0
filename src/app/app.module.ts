@@ -33,6 +33,7 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
 import { PopMascotaComponent } from './components/pop-mascota/pop-mascota.component';
 import { IonicRatingModule } from 'ionic4-rating';
 import { EventComponent } from './components/event/event.component';
+import { CalendarEventComponent } from './components/calendar-event/calendar-event.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBVY89FFlPr00IH6TuWsszn0CgpFn0ZkA0",
@@ -47,10 +48,10 @@ registerLocaleData(localeCO,'es',localeCOExtra);
 @NgModule({
   declarations: [AppComponent,GruposComponent,PopMascotaComponent,
     ConsejoComponent,TypeUserComponent,ChatPage,UpdateUserComponent,
-    EventComponent
+    EventComponent,CalendarEventComponent
   ],
   entryComponents: [GruposComponent,UpdateUserComponent,PopMascotaComponent,
-    ConsejoComponent,TypeUserComponent,ChatPage,EventComponent],
+    ConsejoComponent,TypeUserComponent,ChatPage,EventComponent,CalendarEventComponent],
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,

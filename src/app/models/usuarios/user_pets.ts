@@ -52,7 +52,13 @@ export interface Eventos {
     description:string;
     startTime:Date;
     endTime?:Date;
+    to?:Meeting[];
     destino?:Destino;
+}
+export interface Meeting {
+    name:string;
+    imagen?:string;
+    email:string;
 }
 export interface Destino {
     name:string;
