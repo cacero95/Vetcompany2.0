@@ -62,6 +62,19 @@ export class DbaService {
   getUsuario(){
     return this.usuario;
   }
+  cargar_usuario (integrante){
+    let usuario = new Object();
+    return this.fireDba.list(`usuarios/${integrante}`).snapshotChanges()
+      .pipe(map(values=>{
+        return values.map((value)=>{
+          let us = new Object()
+          let key = value.key
+          us[key] = value.payload.val()
+          usuario[key] = value.payload.val()
+          return {us,usuario};
+        })
+      }));
+  }
   load_integrante(integrante:string){
     let usuario = new Object();
     return new Promise((resolve,reject)=>{
@@ -264,4 +277,5 @@ export class DbaService {
       this.fireDba.object(`usuarios/${this.key}`).update(vet)
     });
   }
+  
 }

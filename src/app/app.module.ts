@@ -34,6 +34,10 @@ import { PopMascotaComponent } from './components/pop-mascota/pop-mascota.compon
 import { IonicRatingModule } from 'ionic4-rating';
 import { EventComponent } from './components/event/event.component';
 import { CalendarEventComponent } from './components/calendar-event/calendar-event.component';
+import {VetEventComponent} from './components/vet-event/vet-event.component';
+import { MapPetComponent } from './components/map-pet/map-pet.component';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBVY89FFlPr00IH6TuWsszn0CgpFn0ZkA0",
@@ -48,10 +52,13 @@ registerLocaleData(localeCO,'es',localeCOExtra);
 @NgModule({
   declarations: [AppComponent,GruposComponent,PopMascotaComponent,
     ConsejoComponent,TypeUserComponent,ChatPage,UpdateUserComponent,
-    EventComponent,CalendarEventComponent
+    EventComponent,CalendarEventComponent,
+    VetEventComponent, MapPetComponent
   ],
   entryComponents: [GruposComponent,UpdateUserComponent,PopMascotaComponent,
-    ConsejoComponent,TypeUserComponent,ChatPage,EventComponent,CalendarEventComponent],
+    ConsejoComponent,TypeUserComponent,ChatPage,EventComponent,CalendarEventComponent,
+    VetEventComponent, MapPetComponent
+  ],
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
@@ -67,6 +74,8 @@ registerLocaleData(localeCO,'es',localeCOExtra);
       InAppBrowser,
       Geolocation,
       ImagePicker,
+      EmailComposer,
+      SocialSharing,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
   bootstrap: [AppComponent]
