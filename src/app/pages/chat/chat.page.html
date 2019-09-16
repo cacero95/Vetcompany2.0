@@ -18,25 +18,46 @@
 </ion-header>
 
 <ion-content padding class="fondo">
-    <ion-item-divider style="--background: transparent; --padding-bottom:20px;" text-wrap *ngFor="let talk of conversacion">
-        <ion-avatar slot="start">
-            <img *ngIf="talk.url" [src]="talk.url">
-            <img *ngIf="!talk.url" src="../../../../assets/img/chat_user.PNG">
-        </ion-avatar>
-        <ion-label color="light" style="--padding-left: 10px;">
-            <h2> {{talk.contenido}} </h2>
-            <p *ngIf="talk.creador.apellido"> {{talk.creador.name}} {{talk.creador.apellido}} </p>
-            <p *ngIf="!talk.creador.apellido"> {{talk.creador.name}} </p>
-        </ion-label>
-    </ion-item-divider>
+    <ion-card style="--background: transparent; --padding-bottom:20px;" text-wrap *ngFor="let talk of conversacion">
+        <div>
+            <img style="width: 60px; border-radius: 10px; margin:auto;" *ngIf="talk.url" [src]="talk.url">
+            <img style="width: 60px; border-radius: 10px; margin:auto;" *ngIf="!talk.url" src="../../../../assets/img/chat_user.PNG">
+        </div>
+
+        <ion-card-content>
+            <ion-card-subtitle color="light">
+                <p style="text-align: center;" *ngIf="talk.creador.apellido"> {{talk.creador.name}} {{talk.creador.apellido}} </p>
+                <p style="text-align: center;" *ngIf="!talk.creador.apellido"> {{talk.creador.name}} </p>
+            </ion-card-subtitle>
+            <ion-label color="light">
+                <h2 style="text-align:center;"> {{talk.contenido}} </h2>
+
+            </ion-label>
+        </ion-card-content>
+
+    </ion-card>
+
 </ion-content>
 <ion-footer>
-    <ion-item>
-        <ion-textarea clearOnEdit="true" autoGrow="true" mode="ios" id="message" type="text" #mensaje slot="start" placeholder="que piensas" autocorrect="on" clearOnEdit="true" clearInput="true">
+    <ion-toolbar>
+        <div id="footer">
+            <div class="elem">
+                <ion-textarea clearOnEdit="true" style="height: 35px;" #mensaje type="text"></ion-textarea>
+            </div>
+            <div class="elem">
+                <ion-button fill="outline" (click)="publicar(mensaje.value)">
+                    <ion-icon mode="md" slot="icon-only" name="send"></ion-icon>
+                </ion-button>
+            </div>
+        </div>
+    </ion-toolbar>
+    <!--
+                <ion-textarea clearOnEdit="true" autoGrow="true" mode="ios" id="message" type="text" #mensaje slot="start" placeholder="que piensas" autocorrect="on" clearOnEdit="true" clearInput="true">
+    
+            </ion-textarea>
+            <ion-button (click)="publicar(mensaje.value)" slot="end">
+                <ion-icon mode="md" name="send"></ion-icon>
+            </ion-button>
+            -->
 
-        </ion-textarea>
-        <ion-button (click)="publicar(mensaje.value)" slot="end" shape="round">
-            <ion-icon name="send"></ion-icon>
-        </ion-button>
-    </ion-item>
 </ion-footer>

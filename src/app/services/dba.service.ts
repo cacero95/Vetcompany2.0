@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User_pets, Veterinarias } from 'src/app/models/usuarios/user_pets';
 import { Events, AlertController } from '@ionic/angular';
-import { Users } from '../models/usuarios/user_pets';
+import { Users, Eventos } from '../models/usuarios/user_pets';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class DbaService {
   constructor(private fireDba:AngularFireDatabase,
     private events:Events,
     private auth:AngularFireAuth,
-    private alert:AlertController) { }
+    private alert:AlertController,
+    private http:HttpClient) { }
 
   login(email:string){
     let us = new Object();
@@ -103,7 +105,25 @@ export class DbaService {
     }    
     this.fireDba.object(`${path}/${this.key}/`).update(usuario);
   }
-  
+  // publica contenido sin fijarse en los usuarios
+  push_contenido(contenido, path:string){
+    this.fireDba.object(`${path}`).update(contenido);
+  }
+  sendNotification(title,mensaje, origen){
+    let cuerpo = {
+      destino:this.token,
+      title,
+      mensaje,
+      origen
+    }
+   return new Promise ((resolve,reject)=>{
+     this.http.post(`https://gag-6f2a5.firebaseapp.com/notificaciones`,cuerpo).subscribe((data)=>{
+       resolve(true);
+     },err=>{
+       reject(false);
+     })
+   })  
+  }
   update_user(us:Users){
     this.key = us.email;
     this.key = this.key.replace("@","_");
@@ -124,12 +144,8 @@ export class DbaService {
    * Publica contenido en el
    * storage de firebase
    */
-  publicar_contenido(path:string){
-    return new Promise((resolve,reject)=>{
-
-    })
-  }
-  publicar_imagen(imagen:string){
+  
+  publicar_imagen(imagen:string):any{
     return new Promise((resolve,reject)=>{
       let firestorage = firebase.storage().ref();
       let file_name = new Date().valueOf().toString();
@@ -144,12 +160,11 @@ export class DbaService {
         },
         ()=>{
           // Exito en la subida de la imagen
-          firestorage.child(`img/${file_name}`).getDownloadURL().then(direccion=>{
+          firestorage.child(`img/${file_name}`).getDownloadURL().then((direccion:string)=>{
             resolve(direccion);
           });    
         }
         )
-        resolve(true)
     })
   }
   registrar_pets(usuario:User_pets,is_imagen:boolean){

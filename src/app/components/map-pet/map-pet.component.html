@@ -1,3 +1,15 @@
-<p>
-  map-pet works!
-</p>
+<ion-content padding>
+    <ion-button (click)="close()" shape="round" fill="outline">
+        <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    <br>
+
+    <ion-list>
+        <ion-list-header>
+            <ion-label>Mascotas</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let pet of pets" (click)="seleccionar(pet)">
+            <ion-label> {{pet.pet_name}} </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

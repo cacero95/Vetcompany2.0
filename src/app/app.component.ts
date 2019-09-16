@@ -5,7 +5,12 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { TypeUserComponent } from './components/type-user/type-user.component';
-import { AngularFireAuth } from '@angular/fire/auth';
+
+import { FCM } from '@ionic-native/fcm/ngx';
+import { DbaService } from './services/dba.service';
+import { Users } from './models/usuarios/user_pets';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-root',
@@ -13,7 +18,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class AppComponent {
 
-
+  usuario:Users;
   select_menu = 0;
   menuVet = [
     {title:'Principal', url:'/home', icon:'home'},
@@ -45,13 +50,27 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router:Router,
     private modal:ModalController,
-    private eventos:Events
+    private eventos:Events,
+    private fcm:FCM,
+    private dba:DbaService,
+    private storage:Storage
   ) {
     this.initializeApp();
     this.menu_update();
   }
   menu_update(){
     this.eventos.subscribe("login",(user)=>{
+      if (this.platform.is('cordova')){
+        let token = this.storage.get("token");
+        if (token){
+          let email:string = user.email;
+          email = email.replace("@","_");
+          while(email.indexOf(".") != -1){
+            email = email.replace(".","_");
+          }
+          this.dba.push_contenido(token,`tokens/${email}`);
+        }
+      }
       if (user.type == 'institute'){
         this.select_menu = 2;
       }
@@ -68,6 +87,31 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    this.fcm.getToken() // token que se le designa a mobile 
+      .then((token:string)=>{
+        console.log(`token del dispositivo es ${token}`);
+        this.storage.set("token",token);
+      }).catch(err=>{
+        console.log(JSON.stringify(err));
+      })
+      this.fcm.onTokenRefresh().subscribe((token:string)=>{
+        console.log(`se actualizo el token mira ${token}`);
+        this.storage.set("token",token);
+      });
+      
+      this.fcm.onNotification().subscribe( data =>{
+        if(data.wasTapped){ // indica si la aplicacion esta en segundo plano
+          console.log(`estoy en segun plano`);
+          console.log(data);
+        }
+        else {
+          // significa que la aplicacion esta en primer plano
+          console.log(`èstoy en primer plano`);
+          console.log(data);
+        }
+      },err=>{
+        console.log(JSON.stringify(err));
+      })
   }
   async navegar(url){
     

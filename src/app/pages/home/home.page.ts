@@ -40,7 +40,11 @@ export class HomePage implements OnInit {
   }
   async add_event(){
     let modal = await this.pop.create({
-      component:EventComponent
+      component:EventComponent,
+      componentProps:{
+        'usuario':this.user
+      },
+      translucent: true
     });
     modal.present();
   }

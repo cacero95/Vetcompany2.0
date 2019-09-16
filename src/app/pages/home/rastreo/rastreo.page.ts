@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Platform, Events, PopoverController } from '@ionic/angular';
 import { DbaService } from '../../../services/dba.service';
-import { PopMascotaComponent } from 'src/app/components/pop-mascota/pop-mascota.component';
-import { User_pets } from '../../../models/usuarios/user_pets';
+import { User_pets, Mascotas } from '../../../models/usuarios/user_pets';
+import { MapPetComponent } from '../../../components/map-pet/map-pet.component';
 
 declare var google;
 @Component({
@@ -15,7 +15,7 @@ declare var google;
   styleUrls: ['./rastreo.page.scss'],
 })
 export class RastreoPage implements OnInit {
-  
+  mascota_buscada:Mascotas;
   posicion_mascota;
   currentMapTrack = null;
   usuario:User_pets;
@@ -84,7 +84,7 @@ export class RastreoPage implements OnInit {
   }
   async select_pets(){
     let popover = await this.pop.create({
-      component:PopMascotaComponent,
+      component:MapPetComponent,
       animated:true,
       componentProps:{
         mascotas:this.usuario.mascotas
@@ -92,7 +92,10 @@ export class RastreoPage implements OnInit {
     })
     popover.present();
     const {data} = await popover.onDidDismiss();
-    this.buscar_mascota(data.pet);
+    if (data){
+      this.mascota_buscada = data.pet;
+      this.buscar_mascota(this.mascota_buscada.pet_name);
+    }
   }
   
   navegar(url){

@@ -5,7 +5,7 @@
         </ion-buttons>
         <ion-title style="--color:#ffffff;">Vetcompany</ion-title>
         <ion-buttons slot="end">
-            <ion-button (click)="add_event()">
+            <ion-button color="light" (click)="add_event()">
                 <ion-icon name="add"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -21,10 +21,6 @@
                 <ion-tab-button *ngIf="is_chats" [ngClass]="{'border': chats}" (click)="change_option(true)">
                     <ion-icon name="chatbubbles"></ion-icon>
                     <ion-label>Chats</ion-label>
-                </ion-tab-button>
-                <ion-tab-button (click)="navegar('rastreo')">
-                    <ion-icon name="locate"></ion-icon>
-                    <ion-label>Mascota</ion-label>
                 </ion-tab-button>
             </ion-tab-bar>
         </ion-tabs>

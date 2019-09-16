@@ -20,7 +20,8 @@ export class ChatPage implements OnInit {
   usuario:Users;
   integrantes:Users[] = [];
   conversacion:Mensaje[] = [];
-  publicar_integrantes:any[] = []; 
+  publicar_integrantes:any[] = [];
+  @ViewChild('mensaje',{static:false}) textArea; 
   constructor(private storage:Storage,
     private dba:DbaService,
     private params:NavParams,
@@ -55,11 +56,14 @@ export class ChatPage implements OnInit {
     }
     
   }
+
+
   asignar_datosChat(chat?:Chats){
     // si se agrega el chat a la entrada significa que el chat es de un grupo
     if(chat){     
       this.nombre_chat = chat.nombre;
       this.conversacion = chat.mensaje;
+      console.log(this.conversacion);
       this.url = 'assets/img/chat_user.PNG';
       if (this.integrantes.length == 2){
         let usuario = this.integrantes.find((us)=>{
@@ -150,18 +154,14 @@ export class ChatPage implements OnInit {
   async publicar(mensaje){
     
     this.mensaje.contenido = mensaje;
-    
-    let send = document.getElementById('message');
-    
-    
+    this.textArea.value = '';
     this.conversacion.unshift(this.mensaje);
     for (let integrante of this.integrantes){
-      
       let find = integrante.chats.findIndex((element)=>{
         return element.nombre === this.nombre_chat
       });
       if (find > -1) {
-        integrante.chats[find].mensaje.push(this.mensaje);
+        integrante.chats[find].mensaje.unshift(this.mensaje);
       }
       else {
         // se pregunta si el integrante no tiene chats

@@ -55,11 +55,19 @@ export class UsuariosPage implements OnInit {
     });
     pop.present();
     const { data } = await pop.onDidDismiss();
-    if (data.nuevo){
+    if (data){ // esto rectifica que el pop
+      // arrojo un valor
+      let mail = data.nuevo.email;
+          mail = data.nuevo;
+          mail = mail.replace("@","_");
+          while(mail.indexOf(".") != -1){
+            mail = mail.replace(".","_");
+          }
+      this.dba.buscar_info(`tokens/${mail}`);
       if (this.platform.is('cordova')){
         
         let email = {
-          to: data.nuevo.email,
+          to: mail,
           cc: 'cacero95@hotmail.com',
           subject: data.nuevo.title,
           body: `Desde el ${data.nuevo.startTime} hasta el ${data.nuevo.endTime}

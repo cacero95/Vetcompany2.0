@@ -24,7 +24,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { LoginGuard } from './celador/login.guard';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { ConsejoComponent } from './components/consejo/consejo.component';
 import { TypeUserComponent } from './components/type-user/type-user.component';
@@ -38,6 +37,7 @@ import {VetEventComponent} from './components/vet-event/vet-event.component';
 import { MapPetComponent } from './components/map-pet/map-pet.component';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBVY89FFlPr00IH6TuWsszn0CgpFn0ZkA0",
@@ -73,6 +73,7 @@ registerLocaleData(localeCO,'es',localeCOExtra);
       SplashScreen,
       InAppBrowser,
       Geolocation,
+      FCM,
       ImagePicker,
       EmailComposer,
       SocialSharing,

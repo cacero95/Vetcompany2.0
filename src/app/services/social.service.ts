@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as firebase from 'firebase';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 
@@ -34,8 +33,13 @@ export class SocialService {
       console.log(resultado);
     })
   }
+  
   publicar_noticia(cuerpo){
-    this.http.post(`https://vetcompany.herokuapp.com/twitter_post`,cuerpo);
+    console.log(cuerpo)
+    this.http.post(`https://vetcompany.herokuapp.com/twitter_post`,cuerpo)
+    .subscribe((res)=>{
+      console.log(res);
+    })
   }
   grupos_animalistas(){
     let cuerpo = {
