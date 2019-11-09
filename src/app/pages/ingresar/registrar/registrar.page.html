@@ -1,8 +1,8 @@
 <ion-header>
     <ion-toolbar mode="ios" class="navbar">
         <ion-buttons>
-            <ion-button (click)="visitar('')">
-                <ion-icon name="arrow-round-back"></ion-icon>
+            <ion-button color="light" (click)="visitar('enterate')">
+                <ion-icon mode="md" name="arrow-round-back"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title>registrate</ion-title>
@@ -38,7 +38,7 @@
         <ion-label>Mascotas</ion-label>
         <ion-checkbox mode="ios" color="primary" (click)="mascotas()"></ion-checkbox>
     </ion-item>
+    <br><br>
 
     <ion-button shape="round" (click)="registrar()" expand="block">Confirmar</ion-button>
-    <br><br>
 </ion-content>

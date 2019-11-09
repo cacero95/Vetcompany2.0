@@ -8,6 +8,8 @@ import { ModalController } from '@ionic/angular';
 
 import { DbaService } from '../../services/dba.service';
 import { SocialService } from '../../services/social.service';
+import { GruposComponent } from '../../components/grupos/grupos.component';
+import { ConsejoComponent } from '../../components/consejo/consejo.component';
 
 @Component({
   selector: 'app-enterate',
@@ -51,10 +53,29 @@ export class EnteratePage implements OnInit {
       console.log(this.tips);
     })
   }
-  async ver_completo(consejo){
-    
+  async ver_completo(consejo,type){
+    let modal = await this.modal.create({
+      component:ConsejoComponent,
+      componentProps: {
+        consejo,
+        type
+      }
+    });
+    modal.present();
   }
   async ver_tweets(name,imagen,nombre){
-    
+    let grupo = {
+      name,
+      imagen,
+      nombre
+    };
+    let alert = await this.modal.create({
+      component:GruposComponent,
+      componentProps:{
+        grupo  
+      },
+      animated:true
+    });
+    alert.present();
   }
 }

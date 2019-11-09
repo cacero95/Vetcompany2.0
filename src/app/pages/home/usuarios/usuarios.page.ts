@@ -57,6 +57,7 @@ export class UsuariosPage implements OnInit {
     const { data } = await pop.onDidDismiss();
     if (data){ // esto rectifica que el pop
       // arrojo un valor
+      console.log(data.nuevo.email);
       let mail = data.nuevo.email;
           mail = data.nuevo;
           mail = mail.replace("@","_");

@@ -63,7 +63,7 @@ export class RegistrarPage implements OnInit {
 
     const {data} = await modal.onDidDismiss();
 
-    if (data.mascota){
+    if (data){
       this.user.mascotas = data.mascota;
       
       if (data.mascota.imagen){

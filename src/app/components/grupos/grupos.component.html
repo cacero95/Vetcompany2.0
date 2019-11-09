@@ -1,3 +1,31 @@
-<p>
-  grupos works!
-</p>
+<ion-header>
+    <ion-toolbar class="navbar" mode="ios">
+        <ion-buttons slot="start">
+            <ion-button color="light" (click)="close()">
+                <ion-icon mode="md" name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> {{busqueda.nombre}} </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="background">
+    <ion-card (click)="show_alert(tuit.created_at)" class="carta_blanca" *ngFor="let tuit of tuits">
+        <img [src]="busqueda.imagen" alt="busqueda.nombre">
+        <ion-card-content>
+            <p>
+                <small> {{tuit.created_at}} </small>
+            </p>
+            <p>
+                {{tuit.text}}
+            </p>
+            <div *ngIf="tuit.entities">
+                <h3>Mencionado Por:</h3>
+                <ol>
+                    <li *ngFor="let mencion of tuit.entities.user_mentions">
+                        {{mencion.name}}
+                    </li>
+                </ol>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -33,17 +33,17 @@ export class RastreoPage implements OnInit {
     private router:Router) { }
 
   ngOnInit() {
+    // si el usuario inicio con otra cuenta entonces se actualza el current user
+    this.eventos.subscribe("login",(user)=>{
+      this.usuario = user;
+    })
+    this.eventos.subscribe("close_sesion",()=>{
+      this.router.navigate(['']);
+    })
+    this.usuario = this.dba.getUsuario();
     this.platform.ready().then(()=>{
       this.mapa = document.getElementById('map');
-      this.mapa = document.getElementById('map');
-      // si el usuario inicio con otra cuenta entonces se actualza el current user
-      this.eventos.subscribe("login",(user)=>{
-        this.usuario = user;
-      })
-      this.eventos.subscribe("close_sesion",()=>{
-        this.router.navigate(['']);
-      })
-      this.usuario = this.dba.getUsuario();
+      
       this.load_map();
       
       this.buscar_mascota(this.usuario.mascotas[0].pet_name);

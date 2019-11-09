@@ -38,6 +38,11 @@ import { MapPetComponent } from './components/map-pet/map-pet.component';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { MascotasPage } from './pages/ingresar/registrar/mascotas/mascotas.page';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBVY89FFlPr00IH6TuWsszn0CgpFn0ZkA0",
@@ -52,12 +57,12 @@ registerLocaleData(localeCO,'es',localeCOExtra);
 @NgModule({
   declarations: [AppComponent,GruposComponent,PopMascotaComponent,
     ConsejoComponent,TypeUserComponent,ChatPage,UpdateUserComponent,
-    EventComponent,CalendarEventComponent,
+    EventComponent,CalendarEventComponent, MascotasPage,
     VetEventComponent, MapPetComponent
   ],
   entryComponents: [GruposComponent,UpdateUserComponent,PopMascotaComponent,
     ConsejoComponent,TypeUserComponent,ChatPage,EventComponent,CalendarEventComponent,
-    VetEventComponent, MapPetComponent
+    VetEventComponent, MapPetComponent,MascotasPage
   ],
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -73,6 +78,10 @@ registerLocaleData(localeCO,'es',localeCOExtra);
       SplashScreen,
       InAppBrowser,
       Geolocation,
+      Camera,
+      FilePath,
+      WebView,
+      File,
       FCM,
       ImagePicker,
       EmailComposer,

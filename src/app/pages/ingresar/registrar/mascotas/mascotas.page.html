@@ -1,9 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>mascotas</ion-title>
-  </ion-toolbar>
+    <ion-toolbar class="navbar" mode="ios">
+        <ion-buttons slot="start">
+            <ion-button (click)="close()" color="light">
+                <ion-icon mode="md" name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Agrega</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content paddig>
+    <div>
+        <img (click)="select_image()" style="margin: auto" src="assets/img/add_photo.png" alt="add_photo">
+    </div>
+    <ion-item details>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" #name></ion-input>
+    </ion-item>
+    <ion-item details>
+        <ion-label position="floating">Edad</ion-label>
+        <ion-input type="number" #age></ion-input>
+    </ion-item>
+    <ion-item details>
+        <ion-label position="floating">Raza</ion-label>
+        <ion-input #Raza></ion-input>
+    </ion-item>
+    <ion-button shape="round" expand="block">
+        Registrar
+    </ion-button>
 </ion-content>

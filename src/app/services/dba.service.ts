@@ -5,9 +5,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User_pets, Veterinarias } from 'src/app/models/usuarios/user_pets';
-import { Events, AlertController } from '@ionic/angular';
-import { Users, Eventos } from '../models/usuarios/user_pets';
+import { Events, AlertController, Platform } from '@ionic/angular';
+import { Users } from '../models/usuarios/user_pets';
 import { HttpClient } from '@angular/common/http';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File,FileEntry } from '@ionic-native/file/ngx';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +28,13 @@ export class DbaService {
     private events:Events,
     private auth:AngularFireAuth,
     private alert:AlertController,
-    private http:HttpClient) { }
+    private http:HttpClient,
+    private camera:Camera,
+    private file:File,
+    private web:WebView,
+    private file_path:FilePath,
+    private platform:Platform,
+    private storage:Storage) { }
 
   login(email:string){
     let us = new Object();
@@ -53,6 +64,15 @@ export class DbaService {
   setUsuario(usuario){
     if(usuario){
       this.events.publish("login",usuario);
+      if (this.platform.is('cordova')){
+        let token = this.storage.get('token');
+        usuario.token = token;
+        this.fireDba.object(`usuarios/${this.key}`).update(usuario).then()
+        .catch((err)=>{
+          console.log(err);
+        })
+        
+      }
       this.usuario = usuario;
     }
     else{
@@ -64,6 +84,72 @@ export class DbaService {
   getUsuario(){
     return this.usuario;
   }
+
+  getToken(correo:string):Promise<any>{
+    correo = correo.replace("@","_");
+    while(correo.indexOf(".") != -1 ){
+      correo.replace(".","_");
+    }
+    return new Promise((resolve,reject)=>{
+          
+      return this.fireDba.list(`usuarios/${correo}`).snapshotChanges()
+        .pipe(map(element=>{
+          return element.map((values)=>{
+          let data = values.payload.val();
+          return data; 
+      })
+    })).subscribe((data)=>{
+      
+    })
+    })
+  }
+
+  select_img():Promise<any>{
+    return new Promise((resolve,reject)=>{
+      let options: CameraOptions = {
+        quality: 100,
+        sourceType:this.camera.PictureSourceType.PHOTOLIBRARY,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+      };
+      let archivo;
+      if (this.platform.is('cordova')){
+        this.camera.getPicture(options).then((imagePath)=>{
+          if (this.platform.is('android')){
+            this.file_path.resolveNativePath(imagePath).then((filePath)=>{
+              archivo["correctPath"] = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+              archivo["currentName"] = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+              //this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            })
+          }
+          else {
+            archivo["currentName"] = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+            archivo["correctPath"] = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+            //this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+          }
+          resolve(archivo)
+        }).catch((err)=>{
+          console.log(err);
+          reject(false);
+        })
+      }
+    })
+  }
+
+  createFileName() {
+    var d = new Date(),
+        n = d.getTime(),
+        newFileName = n + ".jpg";
+    return newFileName;
+}
+ 
+copyFileToLocalDir(namePath, currentName, newFileName) {
+  console.log(namePath);
+  console.log(currentName);
+  console.log(newFileName);
+  this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName);
+}
+
   cargar_usuario (integrante){
     let usuario = new Object();
     return this.fireDba.list(`usuarios/${integrante}`).snapshotChanges()

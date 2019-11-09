@@ -1,3 +1,26 @@
-<p>
-  consejo works!
-</p>
+<ion-header>
+    <ion-toolbar class="navbar" mode="ios">
+        <ion-buttons slot="start">
+            <ion-button color="light" (click)="close()">
+                <ion-icon mode="md" name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{type}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="background">
+    <ion-card class="carta_blanca">
+        <ion-card-header>
+            <ion-card-title text-center class="carta_blanca">
+                {{pet_data.titulo}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>
+                {{pet_data.descripcion}}
+            </p>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

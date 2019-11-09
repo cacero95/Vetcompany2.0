@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DbaService } from '../../../../services/dba.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mascotas',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MascotasPage implements OnInit {
 
-  constructor() { }
+  constructor(private dba:DbaService,
+    private modal:ModalController) { }
 
   ngOnInit() {
+  }
+
+  select_image(){
+    this.dba.select_img().then((data)=>{
+      console.log(data);
+    })
+  }
+  close(){
+    this.modal.dismiss();
   }
 
 }
